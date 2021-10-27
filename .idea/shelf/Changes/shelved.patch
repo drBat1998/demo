@@ -1,0 +1,210 @@
+Index: .idea/demo.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/demo.iml b/.idea/demo.iml
+new file mode 100644
+--- /dev/null	(date 1635243286746)
++++ b/.idea/demo.iml	(date 1635243286746)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="jdk" jdkName="Python 3.9" jdkType="Python SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1635243286757)
++++ b/.idea/modules.xml	(date 1635243286757)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/demo.iml" filepath="$PROJECT_DIR$/.idea/demo.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1635243286784)
++++ b/.idea/misc.xml	(date 1635243286784)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+Index: .idea/inspectionProfiles/profiles_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+--- /dev/null	(date 1635243286797)
++++ b/.idea/inspectionProfiles/profiles_settings.xml	(date 1635243286797)
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1635243286804)
++++ b/.idea/vcs.xml	(date 1635243286804)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1635243287711)
++++ b/.idea/.gitignore	(date 1635243287711)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: Querying rekational database in Python.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Querying rekational database in Python.py b/Querying rekational database in Python.py
+new file mode 100644
+--- /dev/null	(date 1635243227199)
++++ b/Querying rekational database in Python.py	(date 1635243227199)
+@@ -0,0 +1,98 @@
++# Basic SQL query
++"""
++SELECT * FROM Table_Name
++# Returns all columns of all rows of the table
++# Eample: 
++"""
++#SELECT * FROM Orbers
++# We'll use SQLAcademy and pandas 
++
++
++# Workflow of SQL qurying
++"""
++1. Import packages and functions
++2. Create the database engine
++3. Query the database 
++4. Save query results to a DataFrame
++5. Close the conection
++"""
++# 1. Import packages and functions
++from sqlalchemy import create_engine
++import pandas as pd
++# 2. Create the database engine
++engine = create_engine("sqlite:///Northwind.sqlite")
++# 3. Query the database
++con = engine.connect()
++rs = con.execute("SELECT*FROM Octobers")
++df = pd.DataFrame(rs.fetchall())
++df.columns = rs.keys()
++con.close()
++# Using the context manager
++with engine.connect() as con:
++    rs = con.execute("SELECT OrderID, OrderData, ShipName FROM Orders")
++    df = pd.DataFrame(rs.fetchmany(size = 5))
++    df.columns = rs.keys()
++
++# Import packages
++from sqlalchemy import create_engine
++import pandas as pd
++
++# Create engine: engine
++engine = create_engine('sqlite:///Chinook.sqlite')
++
++# Open engine connection: con
++con = engine.connect()
++
++# Perform query: rs
++rs = con.execute("SELECT*FROM Album")
++
++# Save results of the query to DataFrame: df
++df = pd.DataFrame(rs.fetchall())
++
++# Close connection
++con.close
++
++# Print head of DataFrame df
++print(df.head())
++
++# Open engine in context manager
++# Perform query and save results to DataFrame: df
++with engine.connect() as con:
++    rs = con.execute("SELECT LastName, Title FROM Employee")
++    df = pd.DataFrame(rs.fetchmany(size = 3))
++    df.columns = rs.keys()
++
++# Print the length of the DataFrame df
++print(len(df))
++
++# Print the head of the DataFrame df
++print(df.head())
++
++
++# Create engine: engine
++engine = create_engine('sqlite:///Chinook.sqlite')
++
++# Open engine in context manager
++# Perform query and save results to DataFrame: df
++with engine.connect() as con:
++    rs = con.execute("SELECT * FROM Employee WHERE 'EmployeeId'>=6")
++    df = pd.DataFrame(rs.fetchall())
++    df.columns = rs.keys
++
++# Print the head of the DataFrame df
++print(df.head())
++
++# Create engine: engine
++engine = create_engine("'sqlite:///Chinook.sqlite'")
++
++# Open engine in context manager
++with engine.connect() as con:
++    rs = con.execute("SELECT * FROM Employee ORDER by BirthDate")
++    df = pd.DataFrame(rs.fetchall())
++
++    # Set the DataFrame's column names
++    df.columns = rs.keys()
++
++
++# Print head of DataFrame
++print(df.head())
+diff --git a/Northwind.sqlite b/Northwind.sqlite
+new file mode 100644
